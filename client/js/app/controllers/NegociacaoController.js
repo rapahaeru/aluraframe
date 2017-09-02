@@ -3,7 +3,7 @@ class NegociacaoController {
 	constructor() {
 		let $query = document.querySelector.bind(document);
 			
-		this._inputData = new Date($query('#data').value.split('-')),
+		this._inputData = $query('#data').value,
 		this._inputQuantidade = $query('#quantidade').value,
 		this._inputValor = $query('#valor').value;		
 	}
@@ -11,12 +11,12 @@ class NegociacaoController {
 	adiciona(event) {
 		event.preventDefault();
 		
-		console.log('data', this._inputData);
-		console.log('quantidade', this._inputQuantidade);
-		console.log('valor', this._inputValor);
+		let helper = new DateHelper();
 
-		let negociacao = new Negociacao(this._inputData, this._inputQuantidade, this._inputValor);
+		let negociacao = new Negociacao(helper.stringToDate(this._inputData), this._inputQuantidade, this._inputValor);
 		console.log(negociacao);
+		console.log(helper.dateToString(negociacao.data));
+
 	}
 
 }
