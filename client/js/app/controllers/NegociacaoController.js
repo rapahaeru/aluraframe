@@ -13,6 +13,7 @@ class NegociacaoController {
 		event.preventDefault();
 
 		this._ListaNegociacoes.adiciona(this._criaNegociacao());
+		// this._ListaNegociacoes.negociacoes.push(this._criaNegociacao()); //teste para simular programacao defensiva
 		this._limpaFormulário();
 		console.log(this._ListaNegociacoes);
 
@@ -26,9 +27,7 @@ class NegociacaoController {
 	}
 
 	_criaNegociacao() {
-
 		return new Negociacao(DateHelper.stringToDate(this._inputData.value), this._inputQuantidade.value, this._inputValor.value);
-
 	}
 
 }
