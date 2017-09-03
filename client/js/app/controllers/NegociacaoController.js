@@ -9,7 +9,7 @@ class NegociacaoController {
 		this._ListaNegociacoes = new ListaNegociacoes();
 		this._negociacoesView = new NegociacoesView($query('#negociacoes'));
 
-		this._negociacoesView.update();
+		this._negociacoesView.update(this._ListaNegociacoes);
 	}
 
 	adiciona(event) {
@@ -17,6 +17,7 @@ class NegociacaoController {
 
 		this._ListaNegociacoes.adiciona(this._criaNegociacao());
 		// this._ListaNegociacoes.negociacoes.push(this._criaNegociacao()); //teste para simular programacao defensiva
+		this._negociacoesView.update(this._ListaNegociacoes);
 		this._limpaFormulário();
 		console.log(this._ListaNegociacoes);
 
