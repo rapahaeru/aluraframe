@@ -6,7 +6,7 @@ class NegociacaoController {
 		this._inputData = $query('#data'),
 		this._inputQuantidade = $query('#quantidade'),
 		this._inputValor = $query('#valor');
-		this._ListaNegociacoes = new ListaNegociacoes();
+		this._ListaNegociacoes = new ListaNegociacoes(model => this._negociacoesView.update(model)); //arrow function com `this` léxico
 		this._negociacoesView = new NegociacoesView($query('#negociacoes'));
 
 		this._negociacoesView.update(this._ListaNegociacoes);
@@ -20,8 +20,6 @@ class NegociacaoController {
 		event.preventDefault();
 
 		this._ListaNegociacoes.adiciona(this._criaNegociacao());
-		// this._ListaNegociacoes.negociacoes.push(this._criaNegociacao()); //teste para simular programacao defensiva
-		this._negociacoesView.update(this._ListaNegociacoes);
 		this._mensagem.texto = "Negociação adicionada com sucesso!";
 		this._mensagemView.update(this._mensagem);
 		this._limpaFormulário();
@@ -31,7 +29,6 @@ class NegociacaoController {
 
 	apaga() {
 		this._ListaNegociacoes.limpaCampos();
-		this._negociacoesView.update(this._ListaNegociacoes);
 
 		this._mensagem = new Mensagem("Negociações apagadas com sucesso");
 		this._mensagemView.update(this._mensagem);
