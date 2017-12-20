@@ -13,4 +13,8 @@ class ListaNegociacoes {
 		return [].concat(this._negociacoes); // programação defensiva
 	}
 
+	limpaCampos() {
+		this._negociacoes = [];
+	}
+
 }

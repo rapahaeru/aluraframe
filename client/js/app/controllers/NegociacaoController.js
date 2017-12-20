@@ -29,6 +29,14 @@ class NegociacaoController {
 
 	}
 
+	apaga() {
+		this._ListaNegociacoes.limpaCampos();
+		this._negociacoesView.update(this._ListaNegociacoes);
+
+		this._mensagem = new Mensagem("Negociações apagadas com sucesso");
+		this._mensagemView.update(this._mensagem);
+	}
+
 	_limpaFormulário() {
 		this._inputData.value = "";
 		this._inputValor.value = "0";
