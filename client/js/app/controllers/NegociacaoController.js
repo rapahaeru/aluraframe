@@ -6,7 +6,6 @@ class NegociacaoController {
 		this._inputData = $query('#data'),
 		this._inputQuantidade = $query('#quantidade'),
 		this._inputValor = $query('#valor');
-		// this._ListaNegociacoes = new ListaNegociacoes(model => this._negociacoesView.update(model)); //arrow function com `this` léxico
 
 		this._ListaNegociacoes = new Bind(
 			new ListaNegociacoes(),
@@ -31,25 +30,15 @@ class NegociacaoController {
 	}
 
 	importaNegociacoes() {
-		let xhr = new XMLHttpRequest();
-		xhr.open('GET', 'negociacoes/semana');
-		xhr.onreadystatechange = () => {
-			if(xhr.readyState == 4) {
-				if(xhr.status == 200) {
-					console.log(JSON.parse(xhr.responseText));
-					// this._ListaNegociacoes.adiciona(JSON.parse(xhr.responseText));
-					JSON.parse(xhr.responseText)
-					.map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor))
-					.forEach(negociacao => this._ListaNegociacoes.adiciona(negociacao));
-					this._mensagem.texto = "Negociações importadas com sucesso";
-
-				} else {
-					console.log('Nheh');
-					console.log(xhr.responseText);
-				}
+		let service = new NegociacaoService();
+		service.obterNegociacoesDaSemana((err, negociacoes) => {
+			if (err) {
+				this._mensagem.texto = err;
+				return;
 			}
-		};
-		xhr.send();
+			negociacoes.forEach(negociacao => this._ListaNegociacoes.adiciona(negociacao));
+			this._mensagem.texto = "Negociações importadas com sucesso";
+		});
 	}
 
 	apaga() {
