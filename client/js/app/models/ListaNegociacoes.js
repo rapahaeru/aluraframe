@@ -21,4 +21,14 @@ class ListaNegociacoes {
 		return this._negociacoes.reduce((total, n) => total += n.volume, 0.0);
 	}
 
+	ordena(criterio) {
+		console.log('modelo');
+		this._negociacoes.sort(criterio);
+	}
+
+	inverteOrdem() {
+		console.log('inverte ordem')
+		this._negociacoes.reverse();
+	}
+
 }

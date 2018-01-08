@@ -10,12 +10,14 @@ class NegociacaoController {
 		this._ListaNegociacoes = new Bind(
 			new ListaNegociacoes(),
 			new NegociacoesView($query('#negociacoes')),
-			'adiciona', 'limpaCampos');
+			'adiciona', 'limpaCampos', 'ordena');
 		
 		this._mensagem = new Bind(
 			new Mensagem(),
 			new MensagemView($query('#mensagemView')), 
 			'texto');
+
+		this._ordemAtual = '';
 
 	}
 
@@ -56,6 +58,17 @@ class NegociacaoController {
 
 	_criaNegociacao() {
 		return new Negociacao(DateHelper.stringToDate(this._inputData.value), this._inputQuantidade.value, this._inputValor.value);
+	}
+
+	ordena(coluna) {
+		console.log(coluna);
+		if (this._ordemAtual == coluna) {
+			this._ListaNegociacoes.inverteOrdem();
+		} else {
+			this._ListaNegociacoes.ordena((a,b) => a[coluna] - b[coluna]);	
+		}
+		
+		this._ordemAtual = coluna;
 	}
 
 }
